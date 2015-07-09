@@ -1,4 +1,4 @@
-# minkowski-graph
+
 Minkowski Graph
 ===============
 
