@@ -12,4 +12,7 @@ Required Third Party Software
 - [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 
+TODO:
+----------------
 
+- Port the script 'plot' to Java class using [JavaPlot](http://javaplot.panayotis.com)
