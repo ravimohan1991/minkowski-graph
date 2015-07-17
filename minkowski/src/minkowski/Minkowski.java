@@ -34,7 +34,7 @@ import com.panayotis.gnuplot.style.PlotStyle;
 import com.panayotis.gnuplot.style.Style;
 import com.panayotis.gnuplot.swing.JPlot;
 import com.panayotis.gnuplot.terminal.PostscriptTerminal;
-import com.panayotis.gnuplot.terminal.SVGTerminal;
+import com.panayotis.gnuplot.terminal.CustomTerminal;
 import com.panayotis.gnuplot.utils.Debug;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -48,20 +48,64 @@ public class Minkowski {
     /**
      * @param args the command line arguments
      */
+    private
+            static float multiplier = 3;   // for tuning the grid size
+    
     public static void main(String[] args) {
         
-        int num_of_plots;
+        int num_of_plots, ch;
+        JavaPlot p;
         
         Scanner in = new Scanner(System.in);
+        
+        System.out.println("Enter 1 to set epslatex terminal and 2 to set epsterminal");
+        ch = in.nextInt();
         
         System.out.println("Enter the number of plots");
         num_of_plots = in.nextInt();
         
-        for(int i = 0; i < num_of_plots; i++){
-            generateData gd = new generateData();
-            gd.generate();
-            EPSTerminal(gd.data);
+        generateData gd = new generateData(multiplier);
+        gd.generate();
+        
+        if(ch == 1){
+            p = new JavaPlot();
+            
+            CustomTerminal epl = new CustomTerminal("epslatex", System.getProperty("user.dir")
+                + System.getProperty("file.separator") + "output.tex");
+            epl.set("size", "5, 7 color ");
+            p.setTerminal(epl);
+            
+            //Set the title and labels
+            p.setTitle("Minkowski Graph of Observer F");
+            p.set("xlabel", "\"$x$ in meters\"");
+            p.set("ylabel", "\"$t$ in light seconds\"");
+        
+            //Set up the grid for the Minkowski graph
+            p.set("xrange", "[-50:50]");
+            p.set("yrange", "[-50:50]");
+            p.set("size ratio", "-1");
+            p.set("grid xtics", "lc rgb \"#bbbbbb\" lw 1 lt 1");
+            p.set("grid ytics", "lc rgb \"#bbbbbb\" lw 1 lt 1");
+            p.set("ytics", multiplier+" format \" \"");
+            p.set("xtics", multiplier+" format \" \"");
+            p.set("grid", null);
+       
+            p.addPlot(gd.data);
+        
+            PlotStyle stl = ((AbstractPlot) p.getPlots().get(0)).getPlotStyle();
+            stl.setStyle(Style.LINESPOINTS);
+            stl.setLineWidth(2);
+            stl.setLineType(NamedPlotColor.BLUE);
+            stl.setPointType(7);
+            stl.setPointSize(1);
+            ((AbstractPlot) p.getPlots().get(0)).setTitle("Axis");
+        
+            p.plot();
         }
+        
+        
+        
+       
         
     }
     

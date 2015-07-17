@@ -35,12 +35,14 @@ import java.math.*;
 public class generateData {
     
     private
-        static int multiplier = 3;
+        float multiplier;
     
     public
         double data[][];        
                 
-        generateData(){};
+        generateData(float mul){
+            multiplier = mul;
+        }
         
         void generate(){
             
