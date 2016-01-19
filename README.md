@@ -2,7 +2,9 @@
 Minkowski Graph
 ===============
 
-This is the project page for **Minkowski Graph** on GitHub. For the sample plots visit http://ravimohan.net/2015/07/17/the-twin-paradox-iii/.
+This is the project page for **Minkowski Graph** on GitHub. Sample plots
+- [Plot 1] (https://ravimohan1991.files.wordpress.com/2015/07/b1.jpeg)
+- [Plot 2] (https://ravimohan1991.files.wordpress.com/2015/07/a11.jpeg)
 
 
 Required Third Party Software
